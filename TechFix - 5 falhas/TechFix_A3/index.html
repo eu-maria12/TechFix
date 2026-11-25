@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechFix | Assistência Técnica</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">TF</div>
+    <div class="brand-copy">
+      <h1>TechFix</h1>
+      <p>Gestão de Assistência Técnica</p>
+    </div>
+    <span class="status-pill">Painel de atendimento</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">CENTRAL DE SERVIÇOS</p>
+        <h2>Ordens de serviço</h2>
+        <p>Cadastre equipamentos, acompanhe reparos e organize os atendimentos.</p>
+      </div>
+      <div class="welcome-icon" aria-hidden="true">⌘</div>
+    </section>
+
+    <section class="stats" aria-label="Resumo">
+      <article class="stat-card"><span>Total de ordens</span><strong id="totalOrdens">0</strong></article>
+      <article class="stat-card"><span>Aguardando</span><strong id="totalAguardando">0</strong></article>
+      <article class="stat-card"><span>Em andamento</span><strong id="totalAndamento">0</strong></article>
+      <article class="stat-card"><span>Concluídas/entregues</span><strong id="totalConcluidas">0</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h3 id="formTitle">Nova ordem de serviço</h3>
+          <p>Preencha os dados do cliente e do equipamento.</p>
+        </div>
+        <span class="required-note"><span class="required-star">*</span> Campos obrigatórios</span>
+      </div>
+
+      <form id="osForm">
+        <input type="hidden" id="editId">
+
+        <div class="form-grid">
+          <label>
+            <span class="field-title">Nome do cliente <span class="required-star">*</span></span>
+            <input id="cliente" required placeholder="Ex.: Ana Souza">
+          </label>
+
+          <label>
+            <span class="field-title">Telefone</span>
+            <input id="telefone" type="tel" placeholder="Ex.: (31) 99999-0000">
+          </label>
+
+          <label>
+            <span class="field-title">E-mail</span>
+            <input id="email" type="email" placeholder="Ex.: ana@email.com">
+          </label>
+
+          <label>
+            <span class="field-title">Equipamento <span class="required-star">*</span></span>
+            <select id="equipamento" required>
+              <option value="">Selecione</option>
+              <option>Computador desktop</option>
+              <option>Notebook</option>
+              <option>Impressora</option>
+              <option>Outro</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="field-title">Marca</span>
+            <input id="marca" placeholder="Ex.: Dell, Lenovo, Acer">
+          </label>
+
+          <label>
+            <span class="field-title">Status <span class="required-star">*</span></span>
+            <select id="status" required>
+              <option>Aguardando</option>
+              <option>Em andamento</option>
+              <option>Concluído</option>
+              <option>Entregue</option>
+            </select>
+          </label>
+
+          <label class="full">
+            <span class="field-title">Defeito relatado <span class="required-star">*</span></span>
+            <textarea id="defeito" required rows="3" placeholder="Descreva o problema informado pelo cliente"></textarea>
+          </label>
+
+          <label>
+            <span class="field-title">Valor estimado (R$)</span>
+            <input id="valor" type="number" min="0" step="0.01" placeholder="0,00">
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" id="submitBtn">Cadastrar ordem</button>
+          <button class="btn btn-light" type="reset" id="cancelBtn">Limpar campos</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading list-heading">
+        <div>
+          <h3>Ordens cadastradas</h3>
+          <p>Consulte, edite o status ou remova uma ordem.</p>
+        </div>
+
+        <input
+          id="busca"
+          class="search"
+          type="search"
+          aria-label="Buscar ordens"
+          placeholder="Buscar cliente, equipamento ou marca..."
+        >
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Cliente</th>
+              <th>Equipamento</th>
+              <th>Defeito</th>
+              <th>Status</th>
+              <th>Valor</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="ordensBody"></tbody>
+        </table>
+      </div>
+
+      <p class="empty-state" id="emptyState">
+        Nenhuma ordem cadastrada ainda. Use o formulário acima para começar.
+      </p>
+    </section>
+
+    <footer>TechFix • Projeto acadêmico A3 — Garantia da Qualidade de Software</footer>
+  </main>
+
+  <div class="modal-backdrop" id="statusModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle">
+      <h3 id="statusModalTitle">Alterar status</h3>
+      <p id="statusModalInfo" class="modal-subtitle"></p>
+
+      <form id="statusForm">
+        <input type="hidden" id="statusOrderId">
+
+        <label>
+          <span class="field-title">Status da ordem</span>
+          <select id="novoStatus" required>
+            <option>Aguardando</option>
+            <option>Em andamento</option>
+            <option>Concluído</option>
+            <option>Entregue</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit">Salvar</button>
+          <button class="btn btn-light" type="button" id="closeStatusModal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

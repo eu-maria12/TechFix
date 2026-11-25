@@ -1,0 +1,21 @@
+# TechFix — Trabalho A3 UNA
+
+## O que é
+Protótipo web para controle de ordens de serviço de uma assistência técnica de computadores.
+
+## Como abrir
+1. Extraia os arquivos do ZIP para uma pasta.
+2. Abra `index.html` no navegador (Chrome, Edge ou Firefox).
+3. Cadastre uma ordem usando o formulário.
+4. Teste consulta, edição, exclusão e busca.
+5. Os dados ficam salvos no armazenamento local do navegador (`localStorage`).
+
+## Arquivos
+- `index.html`: estrutura da página.
+- `style.css`: aparência e responsividade.
+- `script.js`: regras e funcionalidades.
+
+## Importante para o A3
+Esta é a versão-base funcional, sem as cinco falhas intencionais inseridas. 
+## Limitações do protótipo
+Os dados ficam no navegador usado para abrir o sistema. Não há banco de dados compartilhado, login real ou servidor. Não use dados pessoais reais em uma demonstração pública.
